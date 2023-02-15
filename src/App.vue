@@ -3,7 +3,6 @@ import { ref } from "vue";
 
 const loaded = ref(false);
 const loading = ref(false);
-
 const onClick = () => {
   loading.value = true;
   setTimeout(() => {
