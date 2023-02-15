@@ -1,53 +1,37 @@
 <script setup lang="ts">
-import HelloWorld from "./components/HelloWorld.vue";
-import TheWelcome from "./components/TheWelcome.vue";
+import { ref } from "vue";
+
+const loaded = ref(false);
+const loading = ref(false);
+
+const onClick = () => {
+  loading.value = true;
+  setTimeout(() => {
+    loading.value = false;
+    loaded.value = true;
+  }, 2000);
+};
 </script>
 
 <template>
-  <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="./assets/logo.svg"
-      width="125"
-      height="125"
-    />
+  <header></header>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
+  <main class="d-flex justify-center">
+    <v-text-field
+      :loading="loading"
+      density="compact"
+      variant="solo"
+      label="Search templates"
+      append-inner-icon="mdi-magnify"
+      single-line
+      hide-details
+      @click:append-inner="onClick"
+    ></v-text-field>
+    <br />
+    <v-progress-circular
+      indeterminate
+      :size="100"
+      :width="7"
+    ></v-progress-circular>
   </main>
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
