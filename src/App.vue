@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import Countries from "./views/Countries.vue";
 
 const loaded = ref(false);
 const loading = ref(false);
@@ -15,7 +16,7 @@ const onClick = () => {
 <template>
   <header></header>
 
-  <main class="d-flex justify-center">
+  <main>
     <v-text-field
       :loading="loading"
       density="compact"
@@ -32,5 +33,7 @@ const onClick = () => {
       :size="100"
       :width="7"
     ></v-progress-circular>
+
+    <Countries></Countries>
   </main>
 </template>
