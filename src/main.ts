@@ -1,11 +1,11 @@
-import "vuetify/styles";
-import "@mdi/font/css/materialdesignicons.css";
-import { createVuetify, type ThemeDefinition } from "vuetify";
-import * as components from "vuetify/components";
-import * as directives from "vuetify/directives";
-import { createPinia } from "pinia";
-import { createApp } from "vue";
-import App from "./App.vue";
+import 'vuetify/styles'
+import '@mdi/font/css/materialdesignicons.css'
+import { type ThemeDefinition, createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+import { createPinia } from 'pinia'
+import { createApp } from 'vue'
+import App from './App.vue'
 
 const myCustomLightTheme: ThemeDefinition = {
   dark: true,
@@ -22,13 +22,13 @@ const myCustomLightTheme: ThemeDefinition = {
     // success: '#4CAF50',
     // warning: '#FB8C00',
   },
-};
+}
 
 const vuetify = createVuetify({
   components,
   directives,
   theme: {
-    defaultTheme: "myCustomLightTheme",
+    defaultTheme: 'myCustomLightTheme',
     themes: {
       myCustomLightTheme,
     },
@@ -47,6 +47,6 @@ const vuetify = createVuetify({
   //         },
   //     },
   // },
-});
+})
 
-createApp(App).use(createPinia()).use(vuetify).mount("#app");
+createApp(App).use(createPinia()).use(vuetify).mount('#app')

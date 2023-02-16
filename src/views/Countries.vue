@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Country from "@/components/Country.vue";
-import { storeToRefs } from "pinia";
-import { countriesStore } from "@/stores/countries";
+import { storeToRefs } from 'pinia'
+import Country from '@/components/Country.vue'
+import { countriesStore } from '@/stores/countries'
 
-const { countries } = storeToRefs(countriesStore());
-console.log(countries);
+const { countries } = storeToRefs(countriesStore())
+console.log(countries)
 </script>
 
 <template>
