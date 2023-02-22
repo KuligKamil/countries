@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
-import Country from '@/components/Country.vue'
+import CardSummary from '@/components/CardSummary.vue'
 import FiltersSelect from '@/components/FiltersSelect.vue'
 import SearchBar from '@/components/SearchBar.vue'
 import TopMenu from '@/components/TopMenu.vue'
@@ -26,10 +26,12 @@ const loading = ref(false)
       :size="100"
       :width="7"
     />
-    <Country
+    <CardSummary
       v-for="country in countries"
       :key="country.name"
-      :country="country"
+      :img="country.flags.svg"
+      :title="country.name"
+      :details="country.summary"
     />
   </div>
 </template>
