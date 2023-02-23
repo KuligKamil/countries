@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
+import { useRouter } from 'vue-router/auto'
 import CardSummary from '@/components/CardSummary.vue'
 import FiltersSelect from '@/components/FiltersSelect.vue'
 import SearchBar from '@/components/SearchBar.vue'
@@ -11,6 +12,12 @@ const { loading, countries, filterText } = storeToRefs(store)
 const { fetchData, filterData } = store
 const filtersValue = ['Europe', 'Africa', 'Americas', 'Asia', 'Oceania']
 fetchData()
+const router = useRouter()
+const onClick = (area: number) => {
+  console.log(area)
+  console.log(router)
+  router.push(`countries/${area}`)
+}
 </script>
 
 <template>
@@ -47,9 +54,11 @@ fetchData()
             <CardSummary
               v-for="country in countries"
               :key="country.name"
+              :area="country.area"
               :img="country.flags.svg"
               :title="country.name"
               :details="country.summary"
+              @click:card="onClick"
             />
           </div>
         </v-col>

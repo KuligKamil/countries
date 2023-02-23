@@ -2,10 +2,15 @@ import { URL, fileURLToPath } from 'node:url'
 import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
 import vuetify from 'vite-plugin-vuetify'
+import VueRouter from 'unplugin-vue-router/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), vuetify()],
+  plugins: [vue(), vuetify(), VueRouter({
+    routesFolder: 'src/views',
+    exclude: ['**/__components/**/*'],
+    dts: 'src/router/automated-routes.d.ts',
+  })],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

@@ -1,9 +1,12 @@
 <script setup lang="ts">
 defineProps<{
+  area: number
   img: string
   title: string
   details: Map<string, string | undefined>
 }>()
+
+const emit = defineEmits<(event: 'click:card', area: number) => void>()
 </script>
 
 <template>
@@ -19,5 +22,10 @@ defineProps<{
         </div>
       </div>
     </v-card-text>
+    <v-card-actions>
+      <v-btn flat @click="emit('click:card', area)">
+        more details
+      </v-btn>
+    </v-card-actions>
   </v-card>
 </template>
