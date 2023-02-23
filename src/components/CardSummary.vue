@@ -12,11 +12,10 @@ defineProps<{
     <v-card-title>{{ title }}</v-card-title>
     <v-card-text>
       <div v-for="[key, value] of details" :key="key">
-        {{ key }}: {{ value }}
+        <div v-show="value">
+          {{ key }}: {{ value }}
+        </div>
       </div>
-      <!-- <div>Population: {{ country.population }}</div> -->
-      <!-- <div>Region: {{ country.region }}</div> -->
-      <!-- <div>Capital: {{ country.capital }}</div> -->
     </v-card-text>
   </v-card>
 </template>
