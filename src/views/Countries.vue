@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { ref } from 'vue'
 import CardSummary from '@/components/CardSummary.vue'
 import FiltersSelect from '@/components/FiltersSelect.vue'
 import SearchBar from '@/components/SearchBar.vue'
 import TopMenu from '@/components/TopMenu.vue'
 import { countriesStore } from '@/stores/countries'
 
-const { countries } = storeToRefs(countriesStore())
+const store = countriesStore()
+const { loading, countries } = storeToRefs(store)
+const { fetchData } = store
 const filtersValue = ['Europe', 'Africa', 'America', 'Asia', 'Oceania']
-const loading = ref(false)
-
-// console.log(countries)
+fetchData()
 </script>
 
 <template>
@@ -21,17 +20,21 @@ const loading = ref(false)
     <FiltersSelect :items="filtersValue" />
 
     <br>
-    <v-progress-circular
-      indeterminate
-      :size="100"
-      :width="7"
-    />
-    <CardSummary
-      v-for="country in countries"
-      :key="country.name"
-      :img="country.flags.svg"
-      :title="country.name"
-      :details="country.summary"
-    />
+    <div v-if="loading">
+      <v-progress-circular
+        indeterminate
+        :size="100"
+        :width="7"
+      />
+    </div>
+    <div v-else>
+      <CardSummary
+        v-for="country in countries"
+        :key="country.name"
+        :img="country.flags.svg"
+        :title="country.name"
+        :details="country.summary"
+      />
+    </div>
   </div>
 </template>

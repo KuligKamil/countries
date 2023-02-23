@@ -2,13 +2,13 @@
 defineProps<{
   loading: boolean
 }>()
-// const onClick = () => {
-//   loading.value = true
-//   setTimeout(() => {
-//     loading.value = false
-//     loaded.value = true
-//   }, 2000)
-// }
+const onClick = () => {
+  // loading.value = true
+  // setTimeout(() => {
+  //   loading.value = false
+  //   loaded.value = true
+  // }, 2000)
+}
 </script>
 
 <template>
