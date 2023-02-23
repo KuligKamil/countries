@@ -1,27 +1,44 @@
 import { defineStore } from 'pinia'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import type { RootObject } from './models'
 import { useFetch } from '@/composables/fetch'
 
 export const countriesStore = defineStore('countries', () => {
   const { execute: fetchData, data: allCountries, loading } = useFetch({
     url: 'countries',
-    mapResponse: (countries: RootObject[]) => countries.map(country => ({
-      ...country,
-      summary: new Map<string, string | undefined>([
-        ['Population', country.population.toString()],
-        ['Region', country.region],
-        ['Capital', country.capital],
-      ]),
-    })),
+    mapResponse: (countries: RootObject[]) => countries.map(
+      ({ name, region, subregion, capital, population, languages, flags, ...rest }) =>
+        ({
+          name,
+          region,
+          flags,
+          ...rest,
+          searchText: [region, capital, subregion, ...languages, name]
+            .join('').replaceAll(' ', '').replaceAll('-', '').replaceAll('.', '').replaceAll(',', '').toLowerCase(),
+          summary: new Map<string, string | undefined>([
+            ['Population', population.toString()],
+            ['Region', region],
+            ['Capital', capital],
+          ]),
+        })),
   })
-
+  const filterText = ref<string>('')
+  const filterSelected = ref()
   const countries = computed(() => {
-    // return allJobs.value?.filter(({ tags }) => filters.value.every(filter => tags.includes(filter)));
+    if (filterSelected.value && filterText.value)
+      return allCountries.value?.filter(country => country.region === filterSelected.value && country.searchText.includes(filterText.value.toLowerCase()))
+
+    if (filterSelected.value)
+      return allCountries.value?.filter(country => country.region === filterSelected.value)
+
+    if (filterText.value)
+      return allCountries.value?.filter(country => country.searchText.includes(filterText.value.toLowerCase()))
+
     return allCountries.value
   })
 
-  return { countries, fetchData, loading }
-  // const filters = ref(countries.value.map(country => country.region))
-  // console.log(countries)
+  function filterData(filter: string) {
+    filterSelected.value = filter
+  }
+  return { countries, fetchData, loading, filterData, filterText, filterSelected }
 })

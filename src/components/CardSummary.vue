@@ -9,11 +9,13 @@ defineProps<{
 <template>
   <v-card class="mb-4" variant="tonal">
     <v-img :src="img" />
-    <v-card-title>{{ title }}</v-card-title>
+    <v-card-title class="font-weight-bold">
+      {{ title }}
+    </v-card-title>
     <v-card-text>
       <div v-for="[key, value] of details" :key="key">
         <div v-show="value">
-          {{ key }}: {{ value }}
+          <span class="font-weight-bold">{{ key }}:</span> {{ value }}
         </div>
       </div>
     </v-card-text>

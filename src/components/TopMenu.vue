@@ -6,7 +6,8 @@ defineProps<{
 </script>
 
 <template lang="pug">
-div
-    div {{ title }}
-    div {{ mode }}
+v-toolbar
+  v-toolbar-title {{ title }}
+  v-spacer
+  v-btn 🌑 ☀️ {{  mode }} mode
 </template>

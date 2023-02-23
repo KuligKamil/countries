@@ -1,25 +1,23 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 defineProps<{
+  text: string
+  label: string
   loading: boolean
 }>()
-const onClick = () => {
-  // loading.value = true
-  // setTimeout(() => {
-  //   loading.value = false
-  //   loaded.value = true
-  // }, 2000)
-}
+const emit = defineEmits<(event: 'update:text', text: string) => void>()
+const searchText = ref('')
 </script>
 
 <template>
   <v-text-field
+    v-model="searchText"
     :loading="loading"
-    density="compact"
-    variant="solo"
-    label="Search templates"
-    append-inner-icon="mdi-magnify"
+    :label="label"
+    prepend-inner-icon="mdi-magnify"
     single-line
     hide-details
-    @click:append-inner="onClick"
+    @update:model-value="emit('update:text', searchText)"
   />
 </template>
