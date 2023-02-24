@@ -7,12 +7,12 @@ export const countriesStore = defineStore('countries', () => {
   const { execute: fetchData, data: allCountries, loading } = useFetch({
     url: 'countries',
     mapResponse: (countries: RootObject[]) => countries.map(
-      ({ name, region, subregion, capital, population, languages, area, flags, ...rest }) =>
+      ({ name, region, subregion, capital, population, languages, alpha3Code, flags, ...rest }) =>
         ({
           name,
           region,
           flags,
-          area,
+          alpha3Code,
           ...rest,
           searchText: [region, capital, subregion, ...languages, name]
             .join('').replaceAll(' ', '').replaceAll('-', '').replaceAll('.', '').replaceAll(',', '').toLowerCase(),

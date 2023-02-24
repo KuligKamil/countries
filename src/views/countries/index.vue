@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router/auto'
 import CardSummary from '@/components/CardSummary.vue'
 import FiltersSelect from '@/components/FiltersSelect.vue'
 import SearchBar from '@/components/SearchBar.vue'
-import TopMenu from '@/components/TopMenu.vue'
+
 import { countriesStore } from '@/stores/countries'
 
 const store = countriesStore()
@@ -13,16 +13,13 @@ const { fetchData, filterData } = store
 const filtersValue = ['Europe', 'Africa', 'Americas', 'Asia', 'Oceania']
 fetchData()
 const router = useRouter()
-const onClick = (area: number) => {
-  console.log(area)
-  console.log(router)
-  router.push(`countries/${area}`)
+const onClick = (alpha3Code: string) => {
+  router.push(`countries/${alpha3Code}`)
 }
 </script>
 
 <template>
   <div>
-    <TopMenu title="Where in the world" mode="dark" />
     <v-container>
       <v-row>
         <v-col cols="12">
@@ -54,7 +51,7 @@ const onClick = (area: number) => {
             <CardSummary
               v-for="country in countries"
               :key="country.name"
-              :area="country.area"
+              :alpha3-code="country.alpha3Code"
               :img="country.flags.svg"
               :title="country.name"
               :details="country.summary"
