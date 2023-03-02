@@ -24,10 +24,9 @@ const onClick = (alpha3Code: string) => {
       <v-row>
         <v-col cols="12">
           <SearchBar
-            :text="filterText"
+            v-model:text="filterText"
             label="Search for a country..."
             :loading="loading"
-            @update:text="filterText = $event"
           />
         </v-col>
         <v-col cols="6">
