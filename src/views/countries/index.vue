@@ -5,12 +5,11 @@ import CardSummary from '@/components/CardSummary.vue'
 import FiltersSelect from '@/components/FiltersSelect.vue'
 import SearchBar from '@/components/SearchBar.vue'
 
-import { countriesStore } from '@/stores/countries'
+import { useCountriesStore } from '@/stores/countries'
 
-const store = countriesStore()
-const { loading, countries, filterText } = storeToRefs(store)
+const store = useCountriesStore()
+const { loading, countries, filterText, filtersValue } = storeToRefs(store)
 const { fetchData, filterData } = store
-const filtersValue = ['Europe', 'Africa', 'Americas', 'Asia', 'Oceania']
 fetchData()
 const router = useRouter()
 const onClick = (alpha3Code: string) => {
@@ -54,7 +53,7 @@ const onClick = (alpha3Code: string) => {
               :img="country.flags.svg"
               :title="country.name"
               :details="country.summary"
-              @click:card="onClick"
+              @click:card="onClick(country.alpha3Code)"
             />
           </div>
         </v-col>

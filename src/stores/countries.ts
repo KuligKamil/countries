@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 import type { RootObject } from './models'
 import { useFetch } from '@/composables/fetch'
 
-export const countriesStore = defineStore('countries', () => {
+export const useCountriesStore = defineStore('countries', () => {
   const { execute: fetchData, data: allCountries, loading } = useFetch({
     url: 'countries',
     mapResponse: (countries: RootObject[]) => countries.map(
@@ -23,23 +23,16 @@ export const countriesStore = defineStore('countries', () => {
           ]),
         })),
   })
+  const filtersValue = ref(['Europe', 'Africa', 'Americas', 'Asia', 'Oceania'])
   const filterText = ref<string>('')
-  const filterSelected = ref()
-  const countries = computed(() => {
-    if (filterSelected.value && filterText.value)
-      return allCountries.value?.filter(country => country.region === filterSelected.value && country.searchText.includes(filterText.value.toLowerCase()))
-
-    if (filterSelected.value)
-      return allCountries.value?.filter(country => country.region === filterSelected.value)
-
-    if (filterText.value)
-      return allCountries.value?.filter(country => country.searchText.includes(filterText.value.toLowerCase()))
-
-    return allCountries.value
-  })
+  const filterSelected = ref<string>('')
+  const countries = computed(() => allCountries.value?.filter(country =>
+    (!filterSelected.value || country.region === filterSelected.value)
+    && (!filterText.value || country.searchText.includes(filterText.value.toLowerCase())),
+  ))
 
   function filterData(filter: string) {
     filterSelected.value = filter
   }
-  return { countries, fetchData, loading, filterData, filterText, filterSelected }
+  return { countries, fetchData, loading, filterData, filterText, filterSelected, filtersValue }
 })
