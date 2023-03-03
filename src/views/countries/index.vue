@@ -4,17 +4,16 @@ import { useRouter } from 'vue-router/auto'
 import CardSummary from '@/components/CardSummary.vue'
 import FiltersSelect from '@/components/FiltersSelect.vue'
 import SearchBar from '@/components/SearchBar.vue'
-
 import { useCountriesStore } from '@/stores/countries'
 
-const store = useCountriesStore()
-const { loading, countries, filterText, filtersValue } = storeToRefs(store)
-const { fetchData, filterData } = store
-fetchData()
 const router = useRouter()
+const store = useCountriesStore()
+const { fetchData, filterData } = store
+const { loading, countries, filterText, filtersValue } = storeToRefs(store)
 const onClick = (alpha3Code: string) => {
   router.push(`countries/${alpha3Code}`)
 }
+fetchData()
 </script>
 
 <template>
